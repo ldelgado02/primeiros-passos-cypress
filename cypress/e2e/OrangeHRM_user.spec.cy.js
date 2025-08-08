@@ -16,6 +16,7 @@ describe('Orange HRM Testes', () => {
     defautlField: ".oxd-input--active",
     closeDataButton: ".--close",
     genderButton: ".oxd-radio-input--active",
+    listSelector: ".oxd-select-text-input",
     saveDataButton: "[type='submit']"
   }
 
@@ -38,9 +39,14 @@ describe('Orange HRM Testes', () => {
     cy.get(selectorsList.defautlField).eq(7).clear().type("2002-06-22")
     cy.get(selectorsList.closeDataButton).click()
     cy.get(selectorsList.genderButton).eq(0).click()
+    cy.get(selectorsList.listSelector).eq(0).click()//selcionar lista pais
+    cy.get('.oxd-select-dropdown > :nth-child(27)').click()// clicar no país 
+    cy.get(selectorsList.listSelector).eq(1).click()// clicar na lista genero
+    cy.get('.oxd-select-dropdown > :nth-child(3)')// selecionar genero
     cy.get(selectorsList.saveDataButton).eq(0).click()
     cy.get('body').should('contain', 'Successfully Updated')
     cy.get(".oxd-toast-content-text")
+
   })
 
   it('Login - Fail', () => {
