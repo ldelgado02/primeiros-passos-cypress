@@ -1,60 +1,37 @@
 import userData from '../fixtures/userData.json'
+import LoginPage from '../pages/loginPage.js'
+import DashboardPage from '../pages/dashboardPage.js'
+import MenuPage from '../pages/menuPage.js'
+import MyInfoPage from '../pages/myInfoPage.js'
 
+const loginPage = new LoginPage()
+const dashboardPage = new DashboardPage()
+const menuPage = new MenuPage()
+const myInfoPage = new MyInfoPage()
 
 describe('Orange HRM Testes', () => {
 
-  const selectorsList = {
-    userNameField: "[name='username']",
-    passwordField: "[name='password']",
-    loginButton: "[type='submit']",
-    sectionTitleTopbar: ".oxd-topbar-header-breadcrumb > .oxd-text",
-    wrongCredentialAlert: ".oxd-alert",
-    dashboardGrid: ".orangehrm-dashboard-grid",
-    myInfoButton: "[href='/web/index.php/pim/viewMyDetails']",
-    firstNameField: "[name='firstName']",
-    lastNameField: "[name='lastName']",
-    defautlField: ".oxd-input--active",
-    closeDataButton: ".--close",
-    genderButton: ".oxd-radio-input--active",
-    listSelector: ".oxd-select-text-input",
-    saveDataButton: "[type='submit']"
-  }
-
-
-  it.only('Update User Infos', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.userNameField).type(userData.userSucess.username)
-    cy.get(selectorsList.passwordField).type(userData.userSucess.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
-    cy.get(selectorsList.dashboardGrid)
-    cy.get(selectorsList.myInfoButton).click()
-    cy.get(selectorsList.firstNameField).clear().type("Blade")
-    cy.get(selectorsList.lastNameField).clear().type("Teste")
-    cy.get(selectorsList.defautlField).eq(3).clear().type("Employee T")
-    cy.get(selectorsList.defautlField).eq(4).clear().type("OtherID Test")
-    cy.get(selectorsList.defautlField).eq(5).clear().type("Driver'sLicenseTest")
-    cy.get(selectorsList.defautlField).eq(6).clear().type("2025-08-05")
-    cy.get(selectorsList.closeDataButton).click()
-    cy.get(selectorsList.defautlField).eq(7).clear().type("2002-06-22")
-    cy.get(selectorsList.closeDataButton).click()
-    cy.get(selectorsList.genderButton).eq(0).click()
-    cy.get(selectorsList.listSelector).eq(0).click()//selcionar lista pais
-    cy.get('.oxd-select-dropdown > :nth-child(27)').click()// clicar no país 
-    cy.get(selectorsList.listSelector).eq(1).click()// clicar na lista genero
-    cy.get('.oxd-select-dropdown > :nth-child(3)')// selecionar genero
-    cy.get(selectorsList.saveDataButton).eq(0).click()
-    cy.get('body').should('contain', 'Successfully Updated')
-    cy.get(".oxd-toast-content-text")
+  it.only('Update User Infos - Sucess', () => {
+    loginPage.acessLoginPage()
+    loginPage.loginWitAnyhUser(userData.userSucess.username, userData.userSucess.password)
+    dashboardPage.checkDashboardPage()
+    menuPage.accessMyInfo()
+    myInfoPage.nameUpate()
+    myInfoPage.employeeIdField()
+    myInfoPage.otherIdField()
+    myInfoPage.driversLicenseField()
+    myInfoPage.dateLicenseExpiryField()
+    myInfoPage.nationalityList()
+    myInfoPage.maritalStatusList()
+    myInfoPage.dateBirthField()
+    myInfoPage.genderButton()
+    myInfoPage.saveButton()
 
   })
 
   it('Login - Fail', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.userNameField).type(userData.userFail.username)
-    cy.get(selectorsList.passwordField).type(userData.userFail.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.get(selectorsList.wrongCredentialAlert)
+    loginPage.acessLoginPage()
+    loginPage.loginWitAnyhUser(userData.userFail.username, userData.userFail.password)
   });
 
 })

@@ -1,5 +1,0 @@
-describe('Teste', () => {
-    it('Teste', () => {
-
-    })
-  })
