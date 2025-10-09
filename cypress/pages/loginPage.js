@@ -11,7 +11,7 @@ class LoginPage {
         
     }
 
-    accessLoginPage(){
+    accessLoginPage() {
         cy.visit('/auth/login')
     }
 
@@ -21,7 +21,7 @@ class LoginPage {
         cy.get(this.selectorsList().loginButton).click()
     }
 
-    checkInvalidAccess(){
+    checkInvalidAccess() {
         cy.get(this.selectorsList().wrongCredentialAlert).contains("Invalid credentials")
     }
 
