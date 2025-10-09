@@ -11,28 +11,19 @@ const myInfoPage = new MyInfoPage()
 
 describe('Orange HRM Testes', () => {
 
-  it.only('Update User Infos - Sucess', () => {
-    loginPage.acessLoginPage()
+  it('Update User Infos - Sucess', () => {
+    loginPage.accessLoginPage()
     loginPage.loginWitAnyhUser(userData.userSucess.username, userData.userSucess.password)
+
     dashboardPage.checkDashboardPage()
+    
     menuPage.accessMyInfo()
-    myInfoPage.nameUpate()
-    myInfoPage.employeeIdField()
-    myInfoPage.otherIdField()
-    myInfoPage.driversLicenseField()
-    myInfoPage.dateLicenseExpiryField()
-    myInfoPage.nationalityList()
-    myInfoPage.maritalStatusList()
-    myInfoPage.dateBirthField()
-    myInfoPage.genderButton()
-    myInfoPage.saveButton()
-
+    
+    myInfoPage.fillPersonalDetails("Luis", "Gustavo", "Blade")
+    myInfoPage.fillEmployeeDetails("EmploeeIdX", "OtherID Test", "12345", "2025-08-05")
+    myInfoPage.fillStatusDetails("2002-06-22")
+    myInfoPage.saveForm()
   })
-
-  it('Login - Fail', () => {
-    loginPage.acessLoginPage()
-    loginPage.loginWitAnyhUser(userData.userFail.username, userData.userFail.password)
-  });
 
 })
  
