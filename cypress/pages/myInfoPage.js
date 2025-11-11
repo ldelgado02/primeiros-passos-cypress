@@ -28,15 +28,15 @@ class MyInfoPage {
 
     
     fillEmployeeDetails(employeeId, otherId, driversLicenseNumber, driversLicenseDate) {
-        cy.get(this.selectorsList().defautlField).eq(4).clear().type(employeeId)
-        cy.get(this.selectorsList().defautlField).eq(5).clear().type(otherId)
-        cy.get(this.selectorsList().defautlField).eq(6).clear().type(driversLicenseNumber)
-        cy.get(this.selectorsList().defautlField).eq(7).clear().type(driversLicenseDate)
+        cy.get(this.selectorsList().defautlField).eq(3).clear().type(employeeId)
+        cy.get(this.selectorsList().defautlField).eq(4).clear().type(otherId)
+        cy.get(this.selectorsList().defautlField).eq(5).clear().type(driversLicenseNumber)
+        cy.get(this.selectorsList().defautlField).eq(6).clear().type(driversLicenseDate)
         cy.get(this.selectorsList().dateCloseButton).click()//fechar "calendário"
     }
 
     fillStatusDetails(birthDate) {
-        cy.get(this.selectorsList().defautlField).eq(10).clear().type(birthDate)
+        cy.get(this.selectorsList().defautlField).eq(7).clear().type(birthDate)
         cy.get(this.selectorsList().dateCloseButton).click()//fechar "calendário"
         cy.get(this.selectorsList().genderButton).eq(0).click()
         cy.get(this.selectorsList().listSelector).eq(0).click()//selcionar lista pais "Nationality"
