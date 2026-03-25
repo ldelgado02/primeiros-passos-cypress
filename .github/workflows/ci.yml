@@ -1,45 +1,26 @@
-name: Cypress Tests
+name: CI
 
-on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
-
+on: push
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
+    biuld-test:
+        runs-on: ubuntu-latest
+        steps: 
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-          cache-dependency-path: primeiros-passos-cypress/package-lock.json
+            - name: Cypress Tests
+              uses: cypress-io/github-action@v5
+              with: 
+                  start: 'npm run dev'
+                  biuld: 'npm run build'
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: primeiros-passos-cypress
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: primeiros-passos-cypress
-
-      - name: Upload screenshots on failure
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: primeiros-passos-cypress/cypress/screenshots
-
-      - name: Upload videos
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-videos
-          path: primeiros-passos-cypress/cypress/videos
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: Cypress Results
+                  path: |
+                      cypress/screenshots
+                      cypress/videos
+                      cypress/results
+                  if-no-files-found: ignore
