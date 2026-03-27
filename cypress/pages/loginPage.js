@@ -5,6 +5,7 @@ class LoginPage {
             passwordField: "[name='password']",
             loginButton: "[type='submit']",
             wrongCredentialAlert: ".oxd-alert",
+            baseURL: 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
         }
 
         return selectors
@@ -12,7 +13,7 @@ class LoginPage {
     }
 
     accessLoginPage() {
-        cy.visit('/auth/login')
+        cy.visit(this.selectorsList().baseURL)
     }
 
     loginWitAnyhUser(username, password) {

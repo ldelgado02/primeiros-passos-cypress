@@ -1,8 +1,25 @@
 {
-  "devDependencies": {
-    "cypress": "^14.3.2"
+  "name": "OrangeHRM-Tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy:run": "cypress run --config video=false --env allure=true",
+    "allure:report": "allure generate allure-results",
+    "allure:clear": "rm -r allure-results/ allure-report || true",
+    "allure:open": "allure open allure-report",
+    "test": "npm-run-all allure:clear cy:run allure:report allure:open"
   },
+
+  "devDependencies": {
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "cypress": "^14.3.2",
+    "npm-run-all": "^4.1.5"
+  },
+
   "dependencies": {
     "chance": "^1.1.13"
   }
+
 }
+
